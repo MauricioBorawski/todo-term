@@ -16,12 +16,6 @@ export function Input() {
     return undefined;
   }
 
-  useEffect(() => {
-    if (inputValue === "") {
-      setInputValue("Type your command here...");
-    }
-  }, [inputValue]);
-
   return (
     <>
       <form
@@ -42,12 +36,12 @@ export function Input() {
         />
       </form>
       <div
-        className="w-fit text-slate-300 px-2 border-r-8 animate-blink-caret"
+        className="w-fit text-slate-300 px-2"
         onClick={() => {
           handleOnClickInputDisplay(inputElement);
         }}
       >
-        {inputValue}
+        {inputValue}<span className="border-r-8 animate-blink-caret"></span>
       </div>
     </>
   );
