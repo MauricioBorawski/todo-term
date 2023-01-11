@@ -1,6 +1,12 @@
+import { useState } from "react";
 import { Body, Input } from "./components";
+import { useHandleCommands } from "./hooks";
 
 export default function Home() {
+  const [userInput, setUserInput] = useState<string>("");
+
+  console.log(userInput);
+
   return (
     <main>
       <div className="flex flex-col justify-between">
@@ -8,7 +14,7 @@ export default function Home() {
           To Do Term
         </h1>
         <div className="flex flex-col-reverse h-custom">
-          <Input />
+          <Input setUserInput={setUserInput} />
           <Body />
         </div>
       </div>

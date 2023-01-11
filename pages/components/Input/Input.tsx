@@ -1,9 +1,11 @@
-import { useState, useRef, MutableRefObject, useEffect } from "react";
+import { useState, useRef, MutableRefObject } from "react";
 
-export function Input() {
-  const [inputValue, setInputValue] = useState<string>(
-    "Type your command here..."
-  );
+export interface InputProps {
+  setUserInput: (command: string) => void;
+}
+
+export function Input({ setUserInput }: InputProps) {
+  const [inputValue, setInputValue] = useState<string>("");
 
   const inputElement = useRef(null);
 
@@ -21,7 +23,7 @@ export function Input() {
       <form
         onSubmit={(event) => {
           event.preventDefault();
-          console.log("Submited")
+          setUserInput(inputValue);
         }}
         className="w-0 h-0 opacity-0"
       >
@@ -41,7 +43,8 @@ export function Input() {
           handleOnClickInputDisplay(inputElement);
         }}
       >
-        {inputValue}<span className="border-r-8 animate-blink-caret"></span>
+        {inputValue}
+        <span className="border-r-8 animate-blink-caret"></span>
       </div>
     </>
   );
