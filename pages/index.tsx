@@ -5,6 +5,8 @@ import { useHandleCommands } from "./hooks";
 export default function Home() {
   const [userInput, setUserInput] = useState<string>("");
 
+  const {} = useHandleCommands(userInput);
+
   console.log(userInput);
 
   return (
