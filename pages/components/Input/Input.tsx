@@ -27,6 +27,7 @@ export function Input() {
       <form
         onSubmit={(event) => {
           event.preventDefault();
+          console.log("Submited")
         }}
         className="w-0 h-0 opacity-0"
       >
@@ -41,7 +42,7 @@ export function Input() {
         />
       </form>
       <div
-        className="w-full text-slate-300 p-2"
+        className="w-fit text-slate-300 px-2 border-r-8"
         onClick={() => {
           handleOnClickInputDisplay(inputElement);
         }}
