@@ -42,7 +42,7 @@ export function Input() {
         />
       </form>
       <div
-        className="w-fit text-slate-300 px-2 border-r-8"
+        className="w-fit text-slate-300 px-2 border-r-8 animate-blink-caret"
         onClick={() => {
           handleOnClickInputDisplay(inputElement);
         }}

@@ -9,6 +9,19 @@ module.exports = {
       height: {
         custom: "93vh",
       },
+      animation: {
+        "blink-caret": "blink .75s linear infinite",
+      },
+      keyframes: {
+        blink: {
+          "0%": {
+            "border-color": "transparent",
+          },
+          "50%": {
+            "border-color": "#cbd5e1"
+          },
+        },
+      },
     },
   },
   plugins: [],
