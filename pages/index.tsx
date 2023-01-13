@@ -5,9 +5,7 @@ import { useHandleCommands } from "./hooks";
 export default function Home() {
   const [userInput, setUserInput] = useState<string>("");
 
-  const {} = useHandleCommands(userInput);
-
-  console.log(userInput);
+  const { commandList } = useHandleCommands(userInput);
 
   return (
     <main>
@@ -17,7 +15,7 @@ export default function Home() {
         </h1>
         <div className="flex flex-col-reverse h-custom">
           <Input setUserInput={setUserInput} />
-          <Body />
+          <Body commandList={commandList} />
         </div>
       </div>
     </main>

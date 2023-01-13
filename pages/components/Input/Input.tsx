@@ -24,6 +24,7 @@ export function Input({ setUserInput }: InputProps) {
         onSubmit={(event) => {
           event.preventDefault();
           setUserInput(inputValue);
+          setInputValue("");
         }}
         className="w-0 h-0 opacity-0"
       >
