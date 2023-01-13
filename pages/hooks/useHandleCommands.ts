@@ -1,7 +1,8 @@
 import { useState, useReducer, useEffect } from "react";
 
 type HelpCommands = "help" | "-h";
-type Commands = HelpCommands;
+type ClearCommand = "clear";
+export type Commands = HelpCommands | ClearCommand;
 export type CommandList = Array<Commands>;
 
 export interface UseHandleCommandsReturn {
@@ -23,8 +24,10 @@ export function useHandleCommands(command: string): UseHandleCommandsReturn {
     switch (command) {
       case "help":
       case "-h":
-        setCommandHistory([...commandHistory, command]);
+        setCommandHistory([...commandHistory, "help"]);
         break;
+      case "clear":
+        setCommandHistory([...commandHistory, "clear"]);
 
       default:
         break;

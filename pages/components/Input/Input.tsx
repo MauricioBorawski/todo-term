@@ -18,6 +18,15 @@ export function Input({ setUserInput }: InputProps) {
     return undefined;
   }
 
+  function handleSubmitInput(
+    ref: MutableRefObject<HTMLElement> | MutableRefObject<null>
+  ) {
+    if (ref.current) {
+      ref.current.nodeValue = "";
+    }
+    return undefined;
+  }
+
   return (
     <>
       <form
@@ -25,6 +34,7 @@ export function Input({ setUserInput }: InputProps) {
           event.preventDefault();
           setUserInput(inputValue);
           setInputValue("");
+          handleSubmitInput(inputElement);
         }}
         className="w-0 h-0 opacity-0"
       >
