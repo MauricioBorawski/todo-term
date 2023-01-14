@@ -24,7 +24,7 @@ export function Body({ commandList }: BodyProps) {
         setMessageHistory([...messageHistory, <HelpMessage key={i} />]);
       }
       if (command === "clear") {
-        setMessageHistory([]);
+        clearMessageHistory();
       }
     });
 

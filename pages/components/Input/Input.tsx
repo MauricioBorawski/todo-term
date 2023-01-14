@@ -18,29 +18,21 @@ export function Input({ setUserInput }: InputProps) {
     return undefined;
   }
 
-  function handleSubmitInput(
-    ref: MutableRefObject<HTMLElement> | MutableRefObject<null>
-  ) {
-    if (ref.current) {
-      ref.current.nodeValue = "";
-    }
-    return undefined;
-  }
-
   return (
     <>
       <form
         onSubmit={(event) => {
           event.preventDefault();
           setUserInput(inputValue);
+          console.log(inputValue);
           setInputValue("");
-          handleSubmitInput(inputElement);
         }}
         className="w-0 h-0 opacity-0"
       >
         <input
           autoFocus
           ref={inputElement}
+          value={inputValue}
           className="outline-none"
           placeholder="Type your command here..."
           onChange={(event) => {
