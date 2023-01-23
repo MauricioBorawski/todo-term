@@ -1,43 +1,44 @@
-import { useState, useReducer, useEffect } from "react";
+import { useReducer } from "react";
 
+//TODO: Move a to a type file
 type HelpCommands = "help" | "-h";
 type ClearCommand = "clear";
 export type Commands = HelpCommands | ClearCommand;
 export type CommandList = Array<Commands>;
+export type InitialState = Record<"commands", CommandList>;
 
 export interface UseHandleCommandsReturn {
   commandList: CommandList;
-  isError: boolean;
-  setError: () => void;
+  dispatch: (command: string) => void;
 }
 
-export function useHandleCommands(command: string): UseHandleCommandsReturn {
-  //TODO: Investigate moving this to a reducer
-  const [commandHistory, setCommandHistory] = useState<CommandList>([]);
-  let isError = false;
+const initialState: InitialState = {
+  commands: [],
+};
 
-  function setError() {
-    isError = !isError;
+function reducer(state: InitialState, action: { type: Commands | string }) {
+  switch (action.type) {
+    case "-h":
+    case "help":
+      console.log("help");
+      return state;
+    case "clear":
+      return state;
+    default:
+      return state;
   }
+}
 
-  useEffect(() => {
-    switch (command) {
-      case "help":
-      case "-h":
-        setCommandHistory([...commandHistory, "help"]);
-        break;
-      case "clear":
-        setCommandHistory([...commandHistory, "clear"]);
+export function useHandleCommands(): UseHandleCommandsReturn {
+  //TODO: Investigate moving this to a reducer
+  const [state, dispatch] = useReducer(reducer, initialState);
 
-      default:
-        break;
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [command]);
+  const handleCommand = (command: string) => {
+    dispatch({ type: command });
+  };
 
   return {
-    commandList: commandHistory,
-    isError,
-    setError,
+    commandList: state.commands,
+    dispatch: handleCommand,
   };
 }

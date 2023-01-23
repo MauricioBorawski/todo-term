@@ -1,10 +1,10 @@
 import { useState, useRef, MutableRefObject } from "react";
 
 export interface InputProps {
-  setUserInput: (command: string) => void;
+  dispatchCommand: (command: string) => void;
 }
 
-export function Input({ setUserInput }: InputProps) {
+export function Input({ dispatchCommand }: InputProps) {
   const [inputValue, setInputValue] = useState<string>("");
 
   const inputElement = useRef(null);
@@ -23,8 +23,7 @@ export function Input({ setUserInput }: InputProps) {
       <form
         onSubmit={(event) => {
           event.preventDefault();
-          setUserInput(inputValue);
-          console.log(inputValue);
+          dispatchCommand(inputValue);
           setInputValue("");
         }}
         className="w-0 h-0 opacity-0"
