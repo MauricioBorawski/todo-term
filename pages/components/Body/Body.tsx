@@ -1,8 +1,7 @@
 import { ReactElement, useEffect, useState } from "react";
-import { CommandList } from "../../hooks";
-import { Commands } from "../../hooks/useHandleCommands";
+import { CommandList, Commands } from "../../types/types";
 import { HelpMessage } from "./components";
-// import { useHandleView } from "../../hooks";
+
 export interface BodyProps {
   commandList: CommandList;
 }

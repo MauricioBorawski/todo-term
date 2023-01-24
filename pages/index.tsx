@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { Body, Input } from "./components";
 import { useHandleCommands } from "./hooks";
 

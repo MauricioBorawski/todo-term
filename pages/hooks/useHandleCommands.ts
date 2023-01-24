@@ -1,12 +1,5 @@
 import { useReducer } from "react";
-
-//TODO: Move a to a type file
-type HelpCommands = "help" | "-h";
-type ClearCommand = "clear";
-export type Commands = HelpCommands | ClearCommand;
-export type CommandList = Array<Commands>;
-export type InitialState = Record<"commands", CommandList>;
-
+import { CommandList, Commands, InitialState } from "../types/types";
 export interface UseHandleCommandsReturn {
   commandList: CommandList;
   dispatch: (command: string) => void;
@@ -16,14 +9,16 @@ const initialState: InitialState = {
   commands: [],
 };
 
-function reducer(state: InitialState, action: { type: Commands | string }) {
+function reducer(
+  state: InitialState,
+  action: { type: Commands | string }
+): InitialState {
   switch (action.type) {
     case "-h":
     case "help":
-      console.log("help");
-      return state;
+      return { ...state, commands: [...state.commands, "help"] };
     case "clear":
-      return state;
+      return { ...state, commands: [...state.commands, "clear"] };
     default:
       return state;
   }
