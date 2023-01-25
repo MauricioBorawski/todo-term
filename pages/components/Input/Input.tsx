@@ -1,10 +1,17 @@
 import { useState, useRef, MutableRefObject } from "react";
+import { Commands } from "../../types/types";
 
 export interface InputProps {
   dispatchCommand: (command: string) => void;
+  setUserInput: (userInput: string) => void;
+  lastCommand: Commands;
 }
 
-export function Input({ dispatchCommand }: InputProps) {
+export function Input({
+  dispatchCommand,
+  setUserInput,
+  lastCommand,
+}: InputProps) {
   const [inputValue, setInputValue] = useState<string>("");
 
   const inputElement = useRef(null);
@@ -18,13 +25,28 @@ export function Input({ dispatchCommand }: InputProps) {
     return undefined;
   }
 
+  function handleNewInput(
+    ref: MutableRefObject<HTMLElement> | MutableRefObject<null>
+  ) {
+    if (ref.current) {
+      console.log(ref.current)
+    }
+    return undefined;
+  }
+
+  console.log(lastCommand)
+
   return (
     <>
       <form
         onSubmit={(event) => {
           event.preventDefault();
-          dispatchCommand(inputValue);
+          if (lastCommand !== "register") {
+            dispatchCommand(inputValue);
+          }
+          setUserInput(inputValue);
           setInputValue("");
+          handleNewInput(inputElement);
         }}
         className="w-0 h-0 opacity-0"
       >

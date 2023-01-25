@@ -19,6 +19,13 @@ function reducer(
       return { ...state, commands: [...state.commands, "help"] };
     case "clear":
       return { ...state, commands: [...state.commands, "clear"] };
+    case "register":
+      return { ...state, commands: [...state.commands, "register"] };
+    case "finish_register_process":
+      return {
+        ...state,
+        commands: [...state.commands, "finish_register_process"],
+      };
     default:
       return state;
   }
