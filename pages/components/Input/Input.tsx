@@ -25,17 +25,6 @@ export function Input({
     return undefined;
   }
 
-  function handleNewInput(
-    ref: MutableRefObject<HTMLElement> | MutableRefObject<null>
-  ) {
-    if (ref.current) {
-      console.log(ref.current)
-    }
-    return undefined;
-  }
-
-  console.log(lastCommand)
-
   return (
     <>
       <form
@@ -46,7 +35,6 @@ export function Input({
           }
           setUserInput(inputValue);
           setInputValue("");
-          handleNewInput(inputElement);
         }}
         className="w-0 h-0 opacity-0"
       >

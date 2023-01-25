@@ -35,10 +35,10 @@ export function RegisterMessage({
     if (userData.email && !userData.password) {
       setUserData({ ...userData, password: userInput });
       setMessage(messages.confirm);
-      console.log(userData);
     }
 
     if (userData.email && userData.name && userData.password) {
+      //TODO: Call here to the BE for register an user
       dispatch("finish_register_process");
     }
 
