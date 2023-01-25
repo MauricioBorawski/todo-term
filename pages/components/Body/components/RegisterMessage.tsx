@@ -18,8 +18,26 @@ export function RegisterMessage({
   const messages = {
     email: "Enter your email:",
     password: "Enter your password:",
-    confirm: `Press Y to confirm if the data is correct: Username: ${userData.name}  Email: ${userData.email} Password: ${userData.password}`,
+    confirm: `Press Y to confirm if the data is correct: Username: ${userData.name}  Email: ${userData.email}`,
+    error: "Sorry something went wrong",
+    loading: "Your request is being processed please wait a minute",
   };
+
+  function registerUserData(userData: UserRegisterData) {
+    fetch("/api/user", {
+      method: "POST",
+      body: JSON.stringify(userData),
+    })
+      .then(() => {
+        setMessage(messages.loading);
+      })
+      .catch(() => {
+        setMessage(messages.error);
+      })
+      .finally(() => {
+        dispatch("finish_register_process");
+      });
+  }
 
   useEffect(() => {
     if (userData.name === "" && userInput !== "register") {
@@ -39,7 +57,12 @@ export function RegisterMessage({
 
     if (userData.email && userData.name && userData.password) {
       //TODO: Call here to the BE for register an user
-      dispatch("finish_register_process");
+      if (userInput === "Y") {
+        registerUserData(userData);
+      }
+      if (userInput === "n") {
+        dispatch("finish_register_process");
+      }
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps

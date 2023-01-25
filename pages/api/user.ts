@@ -7,7 +7,9 @@ connectDB();
 
 export default async function main(req: NextApiRequest, res: NextApiResponse) {
   let user: Prisma.UserCreateInput;
-  const userInput: UserRegisterData = req.body as UserRegisterData;
+  const userInput = JSON.parse(req.body) as UserRegisterData;
+
+  console.log(userInput);
 
   //?: Check to create a file for each method
   //?: Use a switch and separate each method into his own function.

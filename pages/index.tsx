@@ -1,13 +1,11 @@
 import { useState } from "react";
 import { Body, Input } from "./components";
 import { useHandleCommands } from "./hooks";
-import { useRegister } from "./hooks";
 
 export default function Home() {
   const [userInput, setUserInput] = useState<string>("");
 
   const { commandList, dispatch } = useHandleCommands();
-  useRegister(commandList, userInput);
 
   return (
     <main>
