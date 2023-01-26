@@ -26,6 +26,16 @@ function reducer(
         ...state,
         commands: [...state.commands, "finish_register_process"],
       };
+    case "login":
+      return {
+        ...state,
+        commands: [...state.commands, "login"],
+      };
+    case "finish_login_process":
+      return {
+        ...state,
+        commands: [...state.commands, "finish_login_process"],
+      };
     default:
       return state;
   }
