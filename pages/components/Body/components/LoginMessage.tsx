@@ -16,20 +16,34 @@ export function LoginMessage({
   const [message, setMessage] = useState(messages.email);
   const [userData, setUserData] = useState({ email: "", password: "" });
 
+  function resetState() {
+    setMessage(messages.email);
+    setUserData({ email: "", password: "" });
+  }
+
   useEffect(() => {
     if (userData.email === "" && userInput !== "login") {
       setUserData({ ...userData, email: userInput });
       setMessage(messages.password);
     }
-    if (!userData.password) {
+    if (userData.email && !userData.password && userInput !== userData.email) {
       setUserData({ ...userData, password: userInput });
     }
     if (userData.email && userData.password) {
       fetch("/api/auth", {
         method: "POST",
         body: JSON.stringify(userData),
-      }).then((data) => {
-        console.log(data);
+      }).then(async (data) => {
+        // ? Handle the error manually by checking if ok. Fetch doesnt see 400 - 500 as errors
+        if (data.ok) {
+        } else {
+          const res = await data.json();
+          if (res.error === "password") {
+            setMessage(
+              "Bad credentials please. Either email or password were invalid."
+            );
+          }
+        }
       });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

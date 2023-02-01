@@ -12,6 +12,8 @@ export function Body({ commandList, userInput, dispatch }: BodyProps) {
   const lastCommand: Commands = commandList[commandList.length - 1];
 
   const [messageHistory, setMessageHistory] = useState<Array<ReactElement>>([]);
+  //? Idea useMessageHistory.
+  // Move this to a context.
 
   const clearMessageHistory = () => {
     setMessageHistory([]);
