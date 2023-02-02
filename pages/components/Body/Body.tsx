@@ -1,6 +1,10 @@
-import { ReactElement, useEffect, useState } from "react";
+import { ReactElement, useEffect, useState, useContext } from "react";
 import { CommandList, Commands } from "../../types/types";
 import { HelpMessage, RegisterMessage, LoginMessage } from "./components";
+import {
+  MessageContext,
+  useMessageContext,
+} from "../../contexts/messageContext";
 
 export interface BodyProps {
   commandList: CommandList;
@@ -9,6 +13,8 @@ export interface BodyProps {
 }
 
 export function Body({ commandList, userInput, dispatch }: BodyProps) {
+  const test = useContext(MessageContext);
+  const { updateMessageHistory } = useMessageContext();
   const lastCommand: Commands = commandList[commandList.length - 1];
 
   const [messageHistory, setMessageHistory] = useState<Array<ReactElement>>([]);
@@ -22,7 +28,7 @@ export function Body({ commandList, userInput, dispatch }: BodyProps) {
   useEffect(() => {
     commandList.map((command, i) => {
       if (command === "help") {
-        setMessageHistory([...messageHistory, <HelpMessage key={i} />]);
+        updateMessageHistory(<HelpMessage key={i} />);
       }
       if (command === "clear") {
         clearMessageHistory();
@@ -32,9 +38,11 @@ export function Body({ commandList, userInput, dispatch }: BodyProps) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [commandList]);
 
+  console.log(test)
+
   return (
     <div className="h-full w-fit flex flex-col justify-end items-start mb-6 text-gray-400">
-      {messageHistory.map((message, index) => {
+      {test.map((message, index) => {
         return (
           <div key={index} className="mb-4">
             {message}
