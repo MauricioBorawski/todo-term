@@ -1,19 +1,27 @@
-import { createContext, useState, ReactElement, useContext } from "react";
+import { createContext, useState, ReactElement, useReducer } from "react";
 
-export const MessageContext = createContext<Array<ReactElement>>([]);
+export interface MessageContextType {
+  messageHistory: ReactElement[];
+  updateMessageHistory: (message: ReactElement) => void;
+  resetHistory: () => void;
+}
+
+export const MessageContext = createContext<MessageContextType | null>(null);
 
 export function MessageProvider({ children }: { children: ReactElement }) {
-  const { messageHistory } = useMessageContext();
+  const { messageHistory, updateMessageHistory, resetHistory } =
+    useMessageContext();
 
   return (
-    <MessageContext.Provider value={messageHistory}>
+    <MessageContext.Provider
+      value={{ messageHistory, updateMessageHistory, resetHistory }}
+    >
       {children}
     </MessageContext.Provider>
   );
 }
 
 export const useMessageContext = () => {
-  const test = useContext(MessageContext);
   const [messageHistory, setMessageHistory] = useState<Array<ReactElement>>([]);
 
   function updateMessageHistory(message: ReactElement) {
