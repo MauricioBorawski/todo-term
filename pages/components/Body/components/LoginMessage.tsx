@@ -1,4 +1,8 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import {
+  MessageContext,
+  MessageContextType,
+} from "../../../contexts/messageContext";
 
 export function LoginMessage({
   userInput,
@@ -13,6 +17,10 @@ export function LoginMessage({
     error: "Something with the credentials went wrong",
   };
 
+  const { updateMessageHistory } = useContext(
+    MessageContext
+  ) as MessageContextType;
+
   const [message, setMessage] = useState(messages.email);
   const [userData, setUserData] = useState({ email: "", password: "" });
 
@@ -24,7 +32,7 @@ export function LoginMessage({
   useEffect(() => {
     if (userData.email === "" && userInput !== "login") {
       setUserData({ ...userData, email: userInput });
-      setMessage(messages.password);
+      updateMessageHistory(<>{messages.password}</>);
     }
     if (userData.email && !userData.password && userInput !== userData.email) {
       setUserData({ ...userData, password: userInput });

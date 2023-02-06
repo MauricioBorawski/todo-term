@@ -1,10 +1,9 @@
-import { ReactElement, useEffect, useState, useContext } from "react";
+import { useEffect, useContext } from "react";
 import { CommandList, Commands } from "../../types/types";
 import { HelpMessage, RegisterMessage, LoginMessage } from "./components";
 import {
   MessageContext,
   MessageContextType,
-  useMessageContext,
 } from "../../contexts/messageContext";
 
 export interface BodyProps {
@@ -42,7 +41,6 @@ export function Body({ commandList, userInput, dispatch }: BodyProps) {
           </div>
         );
       })}
-      {!lastCommand && <p>Type help or -h to see the commands</p>}
       {lastCommand === "register" && (
         <RegisterMessage dispatch={dispatch} userInput={userInput} />
       )}

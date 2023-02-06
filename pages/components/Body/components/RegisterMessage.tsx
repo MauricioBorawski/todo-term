@@ -1,4 +1,8 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import {
+  MessageContext,
+  MessageContextType,
+} from "../../../contexts/messageContext";
 import { UserRegisterData } from "../../../types/types";
 
 export function RegisterMessage({
@@ -8,12 +12,15 @@ export function RegisterMessage({
   userInput: string;
   dispatch: (command: string) => void;
 }) {
-  const [message, setMessage] = useState<string>("Enter your username:");
   const [userData, setUserData] = useState<UserRegisterData>({
     name: "",
     email: "",
     password: "",
   });
+
+  const { updateMessageHistory } = useContext(
+    MessageContext
+  ) as MessageContextType;
 
   const messages = {
     email: "Enter your email:",
@@ -29,10 +36,10 @@ export function RegisterMessage({
       body: JSON.stringify(userData),
     })
       .then(() => {
-        setMessage(messages.loading);
+        updateMessageHistory(messages.loading);
       })
       .catch(() => {
-        setMessage(messages.error);
+        updateMessageHistory(messages.error);
       })
       .finally(() => {
         dispatch("finish_register_process");
@@ -42,17 +49,17 @@ export function RegisterMessage({
   useEffect(() => {
     if (userData.name === "" && userInput !== "register") {
       setUserData({ ...userData, name: userInput });
-      setMessage(messages.email);
+      updateMessageHistory(messages.email);
     }
 
     if (userData.name && !userData.email) {
       setUserData({ ...userData, email: userInput });
-      setMessage(messages.password);
+      updateMessageHistory(messages.password);
     }
 
     if (userData.email && !userData.password) {
       setUserData({ ...userData, password: userInput });
-      setMessage(messages.confirm);
+      updateMessageHistory(messages.confirm);
     }
 
     if (userData.email && userData.name && userData.password) {
@@ -70,7 +77,7 @@ export function RegisterMessage({
 
   return (
     <div>
-      <p>{message}</p>
+      <p>Enter your username:</p>
     </div>
   );
 }

@@ -1,8 +1,9 @@
-import { createContext, useState, ReactElement, useReducer } from "react";
+import { createContext, useState, ReactElement, useId } from "react";
+import { GenericMessage } from "../components";
 
 export interface MessageContextType {
   messageHistory: ReactElement[];
-  updateMessageHistory: (message: ReactElement) => void;
+  updateMessageHistory: (message: ReactElement | string) => void;
   resetHistory: () => void;
 }
 
@@ -22,10 +23,19 @@ export function MessageProvider({ children }: { children: ReactElement }) {
 }
 
 export const useMessageContext = () => {
-  const [messageHistory, setMessageHistory] = useState<Array<ReactElement>>([]);
-
-  function updateMessageHistory(message: ReactElement) {
-    setMessageHistory([...messageHistory, message]);
+  const id = useId();
+  const [messageHistory, setMessageHistory] = useState<Array<ReactElement>>([
+    <GenericMessage key={id}>
+      <p>Type help or -h to see the commands</p>
+    </GenericMessage>,
+  ]);
+  
+  const uniqueKey = useId();
+  function updateMessageHistory(message: ReactElement | string) {
+    setMessageHistory([
+      ...messageHistory,
+      <GenericMessage key={uniqueKey}>{message}</GenericMessage>,
+    ]);
   }
 
   function resetHistory() {
