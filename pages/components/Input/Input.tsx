@@ -1,13 +1,9 @@
 import { useState, useRef, MutableRefObject } from "react";
 import { Commands } from "../../types/types";
 
-export interface InputProps {
+export interface InputProps {}
 
-}
-
-export function Input({
-
-}: InputProps) {
+export function Input({}: InputProps) {
   const [inputValue, setInputValue] = useState<string>("");
 
   const inputElement = useRef(null);
@@ -34,7 +30,7 @@ export function Input({
           autoFocus
           ref={inputElement}
           value={inputValue}
-          className="outline-none"
+          className="outline-none  w-screen"
           placeholder="Type your command here..."
           onChange={(event) => {
             setInputValue(event.target.value);

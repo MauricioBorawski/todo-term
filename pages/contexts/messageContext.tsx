@@ -10,26 +10,13 @@ export interface MessageContextType {
 export const MessageContext = createContext<MessageContextType | null>(null);
 
 export function MessageProvider({ children }: { children: ReactElement }) {
-  const { messageHistory, updateMessageHistory, resetHistory } =
-    useMessageContext();
-
-  return (
-    <MessageContext.Provider
-      value={{ messageHistory, updateMessageHistory, resetHistory }}
-    >
-      {children}
-    </MessageContext.Provider>
-  );
-}
-
-export const useMessageContext = () => {
   const id = useId();
   const [messageHistory, setMessageHistory] = useState<Array<ReactElement>>([
     <GenericMessage key={id}>
       <p>Type help or -h to see the commands</p>
     </GenericMessage>,
   ]);
-  
+
   const uniqueKey = useId();
   function updateMessageHistory(message: ReactElement | string) {
     setMessageHistory([
@@ -42,9 +29,11 @@ export const useMessageContext = () => {
     setMessageHistory([]);
   }
 
-  return {
-    messageHistory,
-    updateMessageHistory,
-    resetHistory,
-  };
-};
+  return (
+    <MessageContext.Provider
+      value={{ messageHistory, updateMessageHistory, resetHistory }}
+    >
+      {children}
+    </MessageContext.Provider>
+  );
+}
