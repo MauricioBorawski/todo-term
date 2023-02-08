@@ -31,5 +31,5 @@ export type UserLoginData = {
 // Typeguards
 
 export function isValidCommand(userInput: string): userInput is Commands {
-  return userInput in CommandTypes;
+  return CommandTypes.includes(userInput as Commands);
 }
