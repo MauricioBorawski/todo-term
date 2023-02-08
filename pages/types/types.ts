@@ -1,16 +1,20 @@
-type HelpCommands = "help" | "-h";
-type ClearCommand = "clear";
-type RegisterCommand = "register" | "finish_register_process";
-type LoginCommand = "login" | "finish_login_process";
-export type Commands =
-  | HelpCommands
-  | ClearCommand
-  | RegisterCommand
-  | LoginCommand;
+const CommandTypes = [
+  "help",
+  "-h",
+  "clear",
+  "register",
+  "finish_register_process",
+  "login",
+  "finish_login_process",
+] as const;
+
+export type Commands = typeof CommandTypes[number];
+
 export type CommandList = Array<Commands>;
-export type InitialState = Record<"commands", CommandList>;
 
 //Back End
+//? Move this to a different file?
+
 export type UserRegisterData = {
   name: string;
   email: string;
@@ -23,3 +27,9 @@ export type UserLoginData = {
 };
 
 //TODO: Create UserData type from the PrimsaUser interface
+
+// Typeguards
+
+export function isValidCommand(userInput: string): userInput is Commands {
+  return userInput in CommandTypes;
+}
